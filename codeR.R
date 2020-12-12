@@ -93,4 +93,26 @@ print(paste('Accuracy',1-misClasificError))
 
 #Random Forest with R..................................
        
- 
+install.packages("randamForest")
+library(randomForest)
+       
+# rows*columns
+dim(df1)
+summary(df1)
+df1[df1 =="?"] <- NA
+
+sample = sample.split(data$user_id, SplitRatio = .80)
+train = subset(data, sample == TRUE)
+test  = subset(data, sample == FALSE)
+  
+dim(train)
+dim(test)
+
+#intialize an instance of the random Forest class
+rf <- randomForest( user_id ~., data=train)
+       
+#prediction 
+pred= predict(rf, newdata=test[18])
+cm=table(test[18],pred)
+       
+#
